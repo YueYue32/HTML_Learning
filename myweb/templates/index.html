@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+
+{% block title %}{{pageTitle}}{% endblock %}
+
+{% block main %}
+<form action='' method="POST">{% csrf_token %}
+    
+    搜尋：<input type="search" name="ccName" placeholder="請輸入人名"><br>
+    
+    <input type="submit" name="sendsearch" value="送出查詢">
+    <!--<h1>{{mainTitle}}</h1>-->
+    <!--<p>{{mainContent}}</p>-->
+</form>
+<p>{{urls}}</p>
+    {% if unit %} 
+        <tr>
+            <td>編號：{{unit.id}}</td><br>
+            <td>姓名：{{unit.cName}}</td><br>
+            <td>性別：{{unit.cSex}}</td><br>
+            <td>生日：{{unit.cBirthday}}</td><br>
+            <td>Email：{{unit.cEmail}}</td><br>
+            <td>手機：{{unit.cPhone}}</td><br>
+            <td>地址：{{unit.cAddr}}</td><br>
+        </tr>
+    {% else %}
+    {% endif %}
+    {% if search_check %}
+        <p>{{username_search}}，沒這個人</p>
+    {% endif %}
+    {% if one_check %}
+        <p>你沒輸入人名資料</p>
+    {% endif %}
+<p>======================================================================</p>
+<form action='' method="POST">{% csrf_token %}
+    
+    <p>輸入以下內容以建立數據庫資料：</p><br>
+    <input type="text" name="cName" placeholder="請輸入人名"><br><br>
+    <input type="text" name="cSex" placeholder="請輸入性別(M、F)"><br><br>
+    <input type="text" name="cBirthday" placeholder="請輸入生日(YYYY-MM-dd)"><br><br>
+    <input type="text" name="cEmail" placeholder="請輸入Email"><br><br>
+    <input type="text" name="cPhone" placeholder="請輸入手機號碼(XXXX-XXX-XXX)"><br><br>
+    <input type="text" name="cAddr" placeholder="請輸入居住地址"><br><br>
+    <input type="submit" name="senddata" value="送出資料">
+    {% if data_check %}
+        <p>{{username_insert}}的資料建立成功</p>
+    {% endif %}
+    
+    {% if full_check %}
+        <p>你資料沒輸入完全</p>
+    {% endif %}
+{% endblock %}
